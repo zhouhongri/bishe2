@@ -237,5 +237,8 @@
 			});
 		}
 	</script>
+	<script type="text/javascript">
+		alert(66);
+	</script>
 </body>
 </html>
