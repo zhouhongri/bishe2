@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+   	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+        
+        
+    <!-- 配置扫描包的路径 -->    
+	<context:component-scan base-package="com.gym.code"></context:component-scan>
+	
+	
+	<!-- 配置视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<!-- 加载静态资源 -->
+	<mvc:resources location="/lib/" mapping="/lib/**"></mvc:resources>
+	<mvc:resources location="/static/" mapping="/static/**"></mvc:resources>
+	<mvc:resources location="/temp/" mapping="/temp/**"></mvc:resources>
+	<!-- 拦截/的请求到页面 -->
+	<mvc:view-controller path="/" view-name="/login/login"/>
+	
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> 
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/> 
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/gym"/>
+		<property name="user" value="root"/> 
+		<property name="password" value="123456"/> 
+		<property name="maxPoolSize" value="40" />     
+        <property name="minPoolSize" value="1" />       
+        <property name="initialPoolSize" value="10" />      
+        <property name="maxIdleTime" value="20" />  
+	</bean>
+	
+	
+	<!-- 配置Hibernate和seeion工厂 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.gym.code.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	 <!-- 事物管理器配置  -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- 配置拦截器 -->
+	<mvc:interceptors>
+	
+	<!-- 在mvc:interceptors根节点下，配置mvc:interceptor，拦截特定请求 -->
+	<mvc:interceptor>
+	
+	<!-- 通过mvc:mapping拦截特定请求，path中：*代表该目录下的同级目录，**代表该目录下的全部内容 -->
+		<mvc:mapping path="/**"/>
+	<bean id="myInterceptor" class="framework.interceptors.MyInterceptor">
+	
+	
+	<!-- 为myInterceptor自定义拦截器中的allowUri赋值 -->
+		<property name="allowUri">
+			<list>
+				<value>/lib/</value>
+				<value>/static/</value>
+				<value>/temp/</value>
+				<value>/common/login/login</value>
+				<value>/loginCtrl/login</value>
+			</list>
+		</property>
+	</bean>
+	</mvc:interceptor>
+	<!-- 在mvc:interceptors根节点下，配置mvc:interceptor，拦截特定请求 -->
+	</mvc:interceptors>
+    
+    <!-- 注解事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <!-- 配置事务事务属性 -->
+     <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 配置事务切点，并把切点和事务属性关联起来 -->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.gym.code.*.dao.impl.*.*(..))" id="txPointcut"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+</beans>
