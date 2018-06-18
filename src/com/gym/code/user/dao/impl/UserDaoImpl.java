@@ -60,5 +60,14 @@ public class UserDaoImpl extends BaseDao implements UserDaoInter{
 		query.setString(0, user.getUsername());
 		return query.list();
 	}
+
+	@Override
+	public int changePasswordDao(User user) {
+		Session session = this.getSession();
+		String hql = "update User set password='"+user.getPassword()+"' where userId=?";
+		Query query = session.createQuery(hql);
+		query.setInteger(0, user.getUserId());
+		return query.executeUpdate();
+	}
 	
 }

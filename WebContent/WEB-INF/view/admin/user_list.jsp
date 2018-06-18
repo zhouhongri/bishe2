@@ -40,7 +40,7 @@
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页
 	<span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span>
-	用户管理 <a class="btn btn-success radius r"
+	用户管理 <a id="refresh" class="btn btn-success radius r"
 		style="line-height: 1.6em; margin-top: 3px"
 		href="javascript:location.replace(location.href);" title="刷新"><i
 		class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -49,7 +49,7 @@
 			<span class="l"><a href="javascript:;"
 				onclick="member_add('添加用户','<%=path%>/common/admin/user_add','','510')"
 				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
-					添加用户</a> </span> <span class="r">共有数据：<strong>${totalcount }</strong> 条
+					添加用户</a> </span> <span class="r">共有数据：<strong id="totalcount">${totalcount }</strong> 条
 			</span>
 		</div>
 		<div class="mt-20">
@@ -63,7 +63,7 @@
 						<th>年龄</th>
 						<th>手机</th>
 						<th>办卡时间</th>
-						<th>办卡时长</th>
+						<th>办卡时长（天）</th>
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -80,13 +80,13 @@
 							<td>${c.cardlengthtime }</td>
 
 							<td class="td-manage"><a title="编辑" href="javascript:;"
-								onclick="member_edit('编辑','member-add.html','4','','510')"
+								onclick="member_edit('编辑','<%=path %>/userCtrl/queryUserById?userId=${c.user_id }','','510')"
 								class="ml-5" style="text-decoration: none"><i
 									class="Hui-iconfont">&#xe6df;</i></a> <a
 								style="text-decoration: none" class="ml-5"
-								onClick="change_password('修改密码','change-password.html','10001','600','270')"
+								onClick="change_password('修改密码','<%=path %>/userCtrl/getUserById?userId=${c.user_id }','600','270')"
 								href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>
-								<a title="删除" href="javascript:;" onclick="member_del(this,'1')"
+								<a title="删除" href="javascript:;" onclick="member_del(this,${c.user_id })"
 								class="ml-5" style="text-decoration: none"><i
 									class="Hui-iconfont">&#xe6e2;</i></a></td>
 						</tr>
@@ -209,11 +209,11 @@
 							});
 		}
 		/*用户-编辑*/
-		function member_edit(title, url, id, w, h) {
+		function member_edit(title, url, w, h) {
 			layer_show(title, url, w, h);
 		}
 		/*密码-修改*/
-		function change_password(title, url, id, w, h) {
+		function change_password(title, url, w, h) {
 			layer_show(title, url, w, h);
 		}
 		/*用户-删除*/
@@ -221,24 +221,26 @@
 			layer.confirm('确认要删除吗？', function(index) {
 				$.ajax({
 					type : 'POST',
-					url : '',
+					url : '<%=path %>/userCtrl/delUserById',
+					data: {"userId":id},
 					dataType : 'json',
 					success : function(data) {
-						$(obj).parents("tr").remove();
-						layer.msg('已删除!', {
-							icon : 1,
-							time : 1000
-						});
-					},
-					error : function(data) {
-						console.log(data.msg);
-					},
+						if(data){
+							$(obj).parents("tr").remove();
+							layer.msg('已删除!', {
+								icon : 1,
+								time : 1000
+							});
+						}else{
+							layer.msg('系统错误!', {
+								icon : 1,
+								time : 1000
+							});
+						}
+					}
 				});
 			});
 		}
-	</script>
-	<script type="text/javascript">
-		alert(66);
 	</script>
 </body>
 </html>

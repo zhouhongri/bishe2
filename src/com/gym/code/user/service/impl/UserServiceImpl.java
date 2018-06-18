@@ -29,12 +29,12 @@ public class UserServiceImpl implements UserServiceInter{
 	}
 
 	@Override
-	public String delUserService(User user) {
+	public boolean delUserService(User user) {
 		int num = this.userDaoInter.delUserDao(user);
 		if(num == 1) {
-			return "success";
+			return true;
 		}else {
-			return "false";
+			return false;
 		}
 	}
 
@@ -56,6 +56,16 @@ public class UserServiceImpl implements UserServiceInter{
 			return "exist";
 		}else {
 			return "noexist";
+		}
+	}
+
+	@Override
+	public boolean changePasswordService(User user) {
+		int num = this.userDaoInter.changePasswordDao(user);
+		if(num==1) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 	

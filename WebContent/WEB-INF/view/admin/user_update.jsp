@@ -41,21 +41,21 @@
 </head>
 <body>
 	<article class="page-container">
-	<form action="<%=path %>/userCtrl/insertUser" method="post" class="form form-horizontal"
+	<form action="<%=path %>/userCtrl/updateUser" method="post" class="form form-horizontal"
 		id="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
-					id="username" name="username">
+				<input type="text" class="input-text" value="${User.username }" placeholder=""
+					id="username" name="username" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
+				<input type="text" class="input-text" value="${User.name }" placeholder=""
 					id="name" name="name">
 			</div>
 		</div>
@@ -77,7 +77,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>年龄：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
+				<input type="text" class="input-text" value="${User.age }" placeholder=""
 					id="age" name="age">
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
+				<input type="text" class="input-text" value="${User.tel }" placeholder=""
 					id="tel" name="tel">
 			</div>
 		</div>
@@ -93,24 +93,37 @@
 			<label class="form-label col-xs-4 col-sm-3"><span
 				class="c-red">*</span>身份：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<span class="select-box"> <select id="identitySel" class="select" size="1"
-					name="identity" onchange="showAndhide();">
-						<option value="1" selected>游客（默认）</option>
-						<option value="2">会员</option>
-				</select>
-				</span>
+				<c:if test="${User.identity=='0'}">
+					<input type="text" class="input-text" value="管理员" placeholder=""
+						id="identity" name="identity" readonly="readonly">
+				</c:if>
+				<c:if test="${User.identity=='1'}">
+					<input type="text" class="input-text" value="游客" placeholder=""
+						id="identity" name="identity" readonly="readonly">
+				</c:if>
+				<c:if test="${User.identity=='2'}">
+					<input type="text" class="input-text" value="会员" placeholder=""
+						id="identity" name="identity" readonly="readonly">
+				</c:if>
+				<c:if test="${User.identity=='3'}">
+					<input type="text" class="input-text" value="教练" placeholder=""
+						id="identity" name="identity" readonly="readonly">
+				</c:if>
 			</div>
 		</div>
-		<div class="row cl" style="display: none;" id="cardlengthtimeDiv">
-			<label class="form-label col-xs-4 col-sm-3">办卡时长（天）：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
-					id="cardlengthtime" name="cardlengthtime">
+		<c:if test="${User.identity=='2'}">
+			<div class="row cl" id="cardlengthtimeDiv">
+				<label class="form-label col-xs-4 col-sm-3">办卡时长（天）：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder=""
+						id="cardlengthtime" name="cardlengthtime" readonly="readonly">
+				</div>
 			</div>
-		</div>
+		</c:if>
 		<div style="display: none;">
-			<input type="text" name="password" value="123"/>
-			<input type="text" id="cardtime" name="cardtime" value=""/>
+			<input type="text" name="userId" value="${User.userId }"/>
+			<input type="text" name="password" value="${User.password }"/>
+			<input type="text" id="cardtime" name="cardtime" value="${User.cardtime }"/>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -139,6 +152,12 @@
 		src="<%=path %>/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			var sexval = '${User.sex}';
+			if(sexval=="男"){
+				$("#sex-1").attr("checked","checked")
+			}else{
+				$("#sex-2").attr("checked","checked")
+			}
 			$('.skin-minimal input').iCheck({
 				checkboxClass : 'icheckbox-blue',
 				radioClass : 'iradio-blue',
@@ -187,33 +206,6 @@
 			});
 		});
 		
-		function showAndhide(){
-			var identitySelval = $("#identitySel").val();
-			if(identitySelval=='2'){
-				var currenttime = getTime();
-				$("#cardtime").val(currenttime);
-				$("#cardlengthtimeDiv").css("display","block");
-			}else{
-				$("#cardtime").val("");
-				$("#cardlengthtimeDiv").css("display","none");
-			}
-		}
-		
-		 function getTime(){
-				var date = new Date();
-			    var seperator1 = "-";
-			    var seperator2 = ":";
-			    var month = date.getMonth() + 1;
-			    var strDate = date.getDate();
-			    if (month >= 1 && month <= 9) {
-			        month = "0" + month;
-			    }
-			    if (strDate >= 0 && strDate <= 9) {
-			        strDate = "0" + strDate;
-			    }
-			    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-			    return currentdate;
-		 }
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>

@@ -26,26 +26,42 @@ public class UserController {
 	public String queryUserByIdCtrl(HttpServletRequest req, User user) {
 		User userInstance = this.userServiceInter.getUserByIdService(user);
 		req.setAttribute("User", userInstance);
-		return "admin/users_update";
+		return "admin/user_update";
+	}
+	
+	@RequestMapping("getUserById")
+	public String getUserById(HttpServletRequest req, User user) {
+		User userInstance = this.userServiceInter.getUserByIdService(user);
+		req.setAttribute("User", userInstance);
+		return "admin/change_password";
 	}
 	
 	@RequestMapping("updateUser")
-	public String updateDemp(User user) {
+	@ResponseBody
+	public boolean updateDemp(User user) {
 		this.userServiceInter.updateUserService(user);
-		return "redirect:/userCtrl/queryUser?currpage=1";
+		return true;
+	}
+	
+	@RequestMapping("changePassword")
+	@ResponseBody
+	public boolean changePassword(User user) {
+		boolean flag = this.userServiceInter.changePasswordService(user);
+		return flag;
 	}
 	
 	@RequestMapping("delUserById")
 	@ResponseBody
-	public String delDempById(User user) {
-		String flag = this.userServiceInter.delUserService(user);
+	public boolean delDempById(User user) {
+		boolean flag = this.userServiceInter.delUserService(user);
 		return flag;
 	}
 	
 	@RequestMapping("insertUser")
-	public String insertUser(User user) {
+	@ResponseBody
+	public boolean insertUser(User user) {
 		this.userServiceInter.insertUserService(user);
-		return "redirect:/userCtrl/queryUser?currpage=1";
+		return true;
 	}
 	
 	@RequestMapping("checkUsername")
