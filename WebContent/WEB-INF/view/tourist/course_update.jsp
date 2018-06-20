@@ -37,80 +37,67 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加用户</title>
+<title>选课信息确认</title>
 </head>
 <body>
 	<article class="page-container">
-	<form action="<%=path %>/userCtrl/insertUser" method="post" class="form form-horizontal"
+	<form action="<%=path %>/payCtrl/insertPay" method="post" class="form form-horizontal"
 		id="form-member-add">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>用户名：</label>
+			<label class="form-label col-xs-4 col-sm-3">课程名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
-					id="username" name="username">
+				<input type="text" class="input-text" value="${Course.courseName }" placeholder=""
+					id="courseName" name="courseName" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>姓名：</label>
+			<label class="form-label col-xs-4 col-sm-3">课程类别：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
-					id="name" name="name">
+				<c:if test="${Course.courseType=='0'}">
+					<input type="text" class="input-text" value="康复课程" placeholder=""
+						id="courseType" name="courseType" readonly="readonly">
+				</c:if>
+				<c:if test="${Course.courseType=='1'}">
+					<input type="text" class="input-text" value="功能课程" placeholder=""
+						id="courseType" name="courseType" readonly="readonly">
+				</c:if>
+				<c:if test="${Course.courseType=='2'}">
+					<input type="text" class="input-text" value="形体课程" placeholder=""
+						id="courseType" name="courseType" readonly="readonly">
+				</c:if>
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>性别：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" value="男" checked> <label
-						for="sex-1">男</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-2" name="sex" value="女"> <label
-						for="sex-2">女</label>
-				</div>
+			<label class="form-label col-xs-4 col-sm-3">课程数量：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${Course.courseNum }" placeholder=""
+					id="courseNum" name="courseNum" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>年龄：</label>
+			<label class="form-label col-xs-4 col-sm-3">课程时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
-					id="age" name="age">
+				<input type="text" class="input-text" value="${Course.courseTime }" placeholder=""
+					id="courseTime" name="courseTime" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>手机：</label>
+			<label class="form-label col-xs-4 col-sm-3">课程价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
-					id="tel" name="tel">
+				<input type="text" class="input-text" value="${Course.courseMoney }" placeholder=""
+					id="courseMoney" name="courseMoney" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>身份：</label>
+			<label class="form-label col-xs-4 col-sm-3">选课人：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<span class="select-box"> <select id="identitySel" class="select" size="1"
-					name="identity" onchange="showAndhide();">
-						<option value="1" selected>游客（默认）</option>
-						<option value="2">会员</option>
-				</select>
-				</span>
-			</div>
-		</div>
-		<div class="row cl" style="display: none;" id="cardlengthtimeDiv">
-			<label class="form-label col-xs-4 col-sm-3">办卡时长（天）：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder=""
-					id="cardlengthtime" name="cardlengthtime">
+				<input type="text" class="input-text" value="${user.name }" placeholder=""
+					id="name" name="name" readonly="readonly">
 			</div>
 		</div>
 		<div style="display: none;">
-			<input type="text" name="password" value="123"/>
-			<input type="text" id="cardtime" name="cardtime" value=""/>
+			<input type="text" name="userId" value="${user.userId }"/>
+			<input type="text" name="courseId" value="${Course.courseId }"/>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -146,36 +133,13 @@
 			});
 
 			$("#form-member-add").validate({
-				rules : {
-					username : {
-						required : true,
-						minlength : 2,
-						maxlength : 16
-					},
-					name : {
-						required : true
-					},
-					sex : {
-						required : true
-					},
-					age : {
-						required : true,
-						digits:true
-					},
-					tel : {
-						required : true,
-						isMobile : true
-					},
-					identity : {
-						required : true
-					}
-				},
 				onkeyup : false,
 				focusCleanup : true,
 				success : "valid",
 				submitHandler : function(form) {
 					$.post($(form).attr('action'),$(form).serialize(),function(result){
 						if(result){
+							layer.msg('添加成功！');
 							var index = parent.layer.getFrameIndex(window.name);
 							parent.location.reload();
 							parent.layer.close(index);
@@ -187,33 +151,6 @@
 			});
 		});
 		
-		function showAndhide(){
-			var identitySelval = $("#identitySel").val();
-			if(identitySelval=='2'){
-				var currenttime = getTime();
-				$("#cardtime").val(currenttime);
-				$("#cardlengthtimeDiv").css("display","block");
-			}else{
-				$("#cardtime").val("");
-				$("#cardlengthtimeDiv").css("display","none");
-			}
-		}
-		
-		 function getTime(){
-				var date = new Date();
-			    var seperator1 = "-";
-			    var seperator2 = ":";
-			    var month = date.getMonth() + 1;
-			    var strDate = date.getDate();
-			    if (month >= 1 && month <= 9) {
-			        month = "0" + month;
-			    }
-			    if (strDate >= 0 && strDate <= 9) {
-			        strDate = "0" + strDate;
-			    }
-			    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-			    return currentdate;
-		 }
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>

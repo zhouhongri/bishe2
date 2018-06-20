@@ -37,7 +37,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加用户</title>
+<title>更新用户</title>
 </head>
 <body>
 	<article class="page-container">
@@ -199,7 +199,7 @@
 							parent.location.reload();
 							parent.layer.close(index);
 						}else{
-							toastr.error('系统错误！');
+							layer.msg('系统错误！');
 						}
 					},"json");
 				}

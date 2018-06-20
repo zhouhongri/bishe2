@@ -13,4 +13,5 @@ public interface CourseDaoInter {
 	public void updateCourseDao(Course course);
 	public void queryCourseDao(HttpServletRequest req,int currpage);
 	public List checkCoursenameDao(Course course);
+	public void queryCourseByTypeDao(HttpServletRequest req, Course course, int currpage);
 }
