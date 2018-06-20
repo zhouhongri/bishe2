@@ -1,10 +1,10 @@
 package com.gym.code.model;
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated 2018-6-20 15:32:34 by Hibernate Tools 4.0.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,6 +19,7 @@ public class Course implements java.io.Serializable {
 	private String courseName;
 	private String courseType;
 	private Integer courseNum;
+	private String coursePlace;
 	private String courseTime;
 	private String courseMoney;
 	private String courseClass;
@@ -26,11 +27,12 @@ public class Course implements java.io.Serializable {
 	public Course() {
 	}
 
-	public Course(String courseName, String courseType, Integer courseNum, String courseTime, String courseMoney,
-			String courseClass) {
+	public Course(String courseName, String courseType, Integer courseNum, String coursePlace, String courseTime,
+			String courseMoney, String courseClass) {
 		this.courseName = courseName;
 		this.courseType = courseType;
 		this.courseNum = courseNum;
+		this.coursePlace = coursePlace;
 		this.courseTime = courseTime;
 		this.courseMoney = courseMoney;
 		this.courseClass = courseClass;
@@ -73,6 +75,15 @@ public class Course implements java.io.Serializable {
 
 	public void setCourseNum(Integer courseNum) {
 		this.courseNum = courseNum;
+	}
+
+	@Column(name = "course_place")
+	public String getCoursePlace() {
+		return this.coursePlace;
+	}
+
+	public void setCoursePlace(String coursePlace) {
+		this.coursePlace = coursePlace;
 	}
 
 	@Column(name = "course_time")

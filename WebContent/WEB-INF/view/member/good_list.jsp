@@ -39,8 +39,8 @@
 </head>
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页
-	<span class="c-gray en">&gt;</span> 课程中心 <span class="c-gray en">&gt;</span>
-	课程管理 <a id="refresh" class="btn btn-success radius r"
+	<span class="c-gray en">&gt;</span> 兑换中心 <span class="c-gray en">&gt;</span>
+	商品管理 <a id="refresh" class="btn btn-success radius r"
 		style="line-height: 1.6em; margin-top: 3px"
 		href="javascript:location.replace(location.href);" title="刷新"><i
 		class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -53,68 +53,34 @@
 			<table class="table table-border table-bordered table-hover table-bg">
 				<thead>
 					<tr class="text-c">
-						<th>课程名称</th>
-						<th>课程数量</th>
-						<th>课程地点</th>
-						<th>课程时间</th>
-						<th>课程价格</th>
-						<th>教练姓名</th>
-						<th>教练性别</th>
-						<th>教练年龄</th>
-						<th>等级</th>
+						<th>商品编号</th>
+						<th>商品名称</th>
+						<th>所需积分</th>
+						<th>剩余数量</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${list }" var="c">
 						<tr class="text-c">
-							<td>${c.course_name }</td>
-							<td>${c.course_num }</td>
-							<td>${c.course_place }</td>
-							<td>${c.course_time }</td>
-							<td>${c.course_money }</td>
-							<td>${c.name }</td>
-							<td>${c.sex }</td>
-							<td>${c.age }</td>
-							<c:choose>
-								<c:when test="${c.course_class=='2' }">
-									<td>会员专享</td>
-								</c:when>
-								<c:otherwise>
-									<td>普通</td>
-								</c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${c.course_class=='2' }">
-									<c:choose>
-										<c:when test="${c.course_class==user.identity }">
-											<td class="td-manage"><a title="选课" href="javascript:;"
-								onclick="member_edit('选课','<%=path %>/courseCtrl/queryCourseById?courseId=${c.course_id }','','510')"
+							<td>${c.goods_id }</td>
+							<td>${c.goods_name }</td>
+							<td>${c.goods_integral }</td>
+							<td>${c.goods_num }</td>
+							<td class="td-manage"><a title="兑换" href="javascript:;"
+								onclick="member_edit('兑换','<%=path %>/goodsCtrl/queryGoodsById?goodsId=${c.goods_id }','','510')"
 								class="ml-5" style="text-decoration: none"><i
 									class="Hui-iconfont">&#xe6df;</i></a></td>
-										</c:when>
-										<c:otherwise>
-											<td>无</td>
-										</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
-									<td class="td-manage"><a title="选课" href="javascript:;"
-								onclick="member_edit('选课','<%=path %>/courseCtrl/queryCourseById?courseId=${c.course_id }','','510')"
-								class="ml-5" style="text-decoration: none"><i
-									class="Hui-iconfont">&#xe6df;</i></a></td>
-								</c:otherwise>
-							</c:choose>
 						</tr>
 					</c:forEach>
 				</tbody>
 				<tr>
-					<td colspan="10"><div class="pagelist">
+					<td colspan="9"><div class="pagelist">
 							<c:if test="${currpage > 1}">
-								<a href="<%=path %>/courseCtrl/queryCourseByType?currpage=${currpage-1}&&courseType=0">上一页</a>
+								<a href="<%=path %>/goodsCtrl/queryGoods?currpage=${currpage-1}&&courseType=0">上一页</a>
 							</c:if>
 							<c:if test="${currpage < pagecount}">|当前${currpage}页/总${pagecount}页|
-        <a href="<%=path %>/courseCtrl/queryCourseByType?currpage=${currpage+1}&&courseType=0">下一页</a>
+        <a href="<%=path %>/goodsCtrl/queryGoods?currpage=${currpage+1}&&courseType=0">下一页</a>
 							</c:if>
 						</div></td>
 				</tr>

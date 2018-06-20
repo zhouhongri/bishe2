@@ -69,12 +69,46 @@
 					<td>年龄</td>
 					<td>${user.age }</td>
 				</tr>
+				<tr>
+					<td>积分</td>
+					<td id="integraltd"></td>
+				</tr>
+				<tr>
+					<td>类型</td>
+					<td id="typetd"></td>
+				</tr>
+				<tr>
+					<td>办卡时间</td>
+					<td>${user.cardtime }</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
 	<script type="text/javascript" src="<%=path%>/lib/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path%>/static/h-ui/js/H-ui.min.js"></script>
 	<script>
+		$(function(){
+			var userIdval = '${user.userId}';
+			var integraltype="普通";
+			$.post('<%=path %>/integralCtrl/queryIntegralByUserId',{'userId':userIdval},
+					function(result){
+				if(result!=null&&result!=""){
+					if(result.integralNum<=50){
+						integraltype = '白银会员';
+					}else if(result.integralNum>50&&result.integralNum<=100){
+						integraltype = '黄金会员';
+					}else if(result.integralNum>100&&result.integralNum<=200){
+						integraltype = '白金会员';
+					}else if(result.integralNum>200&&result.integralNum<=500){
+						integraltype = '钻石会员';
+					}else{
+						integraltype = '游客';
+					}
+				}
+				$("#integraltd").text(result.integralNum);
+				$("#typetd").text(integraltype);
+			})
+		})
 		
 	</script>
 </body>

@@ -60,5 +60,14 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDaoInter{
 		query.setString(0, goods.getGoodsName());
 		return query.list();
 	}
+
+	@Override
+	public int updateGoodsNumById(String subNum, Integer goodsId) {
+		Session session = this.getSession();
+		String hql = "update Goods set goodsNum=goodsNum-"+subNum+" where goodsId=?";
+		Query query = session.createQuery(hql);
+		query.setInteger(0, goodsId);
+		return query.executeUpdate();
+	}
 	
 }

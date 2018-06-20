@@ -83,7 +83,7 @@
 				}else if(result.useridentity=="游客"){
 					window.location.href="<%=path%>/common/tourist/index";
 				}else if(result.useridentity=="会员"){
-					window.location.href="<%=path%>/common/driverdemp/index";
+					window.location.href="<%=path%>/common/member/index";
 				}else if(result.useridentity=="教练"){
 					window.location.href="<%=path%>/common/officials/index";
 				}

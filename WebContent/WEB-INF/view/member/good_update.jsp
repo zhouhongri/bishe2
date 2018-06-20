@@ -37,62 +37,31 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>选课信息确认</title>
+<title>兑换信息确认</title>
 </head>
 <body>
 	<article class="page-container">
-	<form action="<%=path %>/payCtrl/insertPay" method="post" class="form form-horizontal"
+	<form action="<%=path %>/exchangeCtrl/insertExchange" method="post" class="form form-horizontal"
 		id="form-member-add">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">课程名称：</label>
+			<label class="form-label col-xs-4 col-sm-3">商品编号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Course.courseName }" placeholder=""
-					id="courseName" name="courseName" readonly="readonly">
+				<input type="text" class="input-text" value="${Goods.goodsId }" placeholder=""
+					id="goodsId" name="goodsId" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">课程类别：</label>
+			<label class="form-label col-xs-4 col-sm-3">商品名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<c:if test="${Course.courseType=='0'}">
-					<input type="text" class="input-text" value="康复课程" placeholder=""
-						id="courseType" name="courseType" readonly="readonly">
-				</c:if>
-				<c:if test="${Course.courseType=='1'}">
-					<input type="text" class="input-text" value="功能课程" placeholder=""
-						id="courseType" name="courseType" readonly="readonly">
-				</c:if>
-				<c:if test="${Course.courseType=='2'}">
-					<input type="text" class="input-text" value="形体课程" placeholder=""
-						id="courseType" name="courseType" readonly="readonly">
-				</c:if>
+				<input type="text" class="input-text" value="${Goods.goodsName }" placeholder=""
+					id="goodsName" name="goodsName" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">课程数量：</label>
+			<label class="form-label col-xs-4 col-sm-3">所需积分：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Course.courseNum }" placeholder=""
-					id="courseNum" name="courseNum" readonly="readonly">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">课程地点：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Course.coursePlace }" placeholder=""
-					id="courseTime" name="courseTime" readonly="readonly">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">课程时间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Course.courseTime }" placeholder=""
-					id="courseTime" name="courseTime" readonly="readonly">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">课程价格：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Course.courseMoney }" placeholder=""
-					id="courseMoney" name="courseMoney" readonly="readonly">
+				<input type="text" class="input-text" value="${Goods.goodsIntegral }" placeholder=""
+					id="goodsIntegral" name="goodsIntegral" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
@@ -102,13 +71,27 @@
 					id="name" name="name" readonly="readonly">
 			</div>
 		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">剩余数量：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${Goods.goodsNum }" placeholder=""
+					id="goodsNum" name="goodsNum" readonly="readonly">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">购买数量：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder=""
+					id="subNum" name="subNum" oninput="checkNum();">
+			</div>
+		</div>
 		<div style="display: none;">
 			<input type="text" name="userId" value="${user.userId }"/>
-			<input type="text" name="courseId" value="${Course.courseId }"/>
+			<input type="text" name="goodsId" value="${Goods.goodsId }"/>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit"
+				<input id="submitipt" class="btn btn-primary radius" type="submit"
 					value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 			</div>
 		</div>
@@ -140,26 +123,43 @@
 			});
 
 			$("#form-member-add").validate({
+				rules : {
+					subNum : {
+						required : true,
+						digits:true
+					}
+				},
 				onkeyup : false,
 				focusCleanup : true,
 				success : "valid",
 				submitHandler : function(form) {
 					$.post($(form).attr('action'),$(form).serialize(),function(result){
 						if(result){
-							parent.layer.msg('选课成功！');
+							parent.layer.msg('兑换成功！');
 							setTimeout(function(){
 								var index = parent.layer.getFrameIndex(window.name);
 								parent.location.reload();
 								parent.layer.close(index);
 							},1000);
 						}else{
-							parent.layer.msg('系统错误！');
+							setTimeout(function(){
+								parent.layer.msg('积分不足！');
+							},1000);
 						}
 					},"json");
 				}
 			});
 		});
 		
+		function checkNum(){
+			var goodsNumval = $("#goodsNum").val();
+			var subNumval = $("#subNum").val();
+			if(subNumval>goodsNumval){
+				$("#submitipt").attr("disabled",true);
+			}else{
+				$("#submitipt").attr("disabled",false);
+			}
+		}
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>
