@@ -58,5 +58,10 @@ public class CourseServiceImpl implements CourseServiceInter{
 			return "noexist";
 		}
 	}
+
+	@Override
+	public void queryCourseByTypeService(HttpServletRequest req, Course course, String currpage) {
+		this.courseDaoInter.queryCourseByTypeDao(req, course, Integer.parseInt(currpage));
+	}
 	
 }

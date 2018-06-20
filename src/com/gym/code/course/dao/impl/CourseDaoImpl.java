@@ -60,5 +60,15 @@ public class CourseDaoImpl extends BaseDao implements CourseDaoInter{
 		query.setString(0, course.getCourseName());
 		return query.list();
 	}
+
+	@Override
+	public void queryCourseByTypeDao(HttpServletRequest req, Course course, int currpage) {
+		String sql = "select course.*,user.name,user.sex,user.age from Course,givelessons,user " + 
+				" where course.course_type='"+course.getCourseType()+"'and " + 
+				" givelessons.user_id=user.user_id and " + 
+				" givelessons.course_id=course.course_id";
+		PageUtil pageUtil = new PageUtil();
+		pageUtil.doPage(sql, this.getSession(), req, currpage);
+	}
 	
 }

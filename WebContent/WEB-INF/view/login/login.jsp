@@ -81,7 +81,7 @@
 				if(result.useridentity=="管理员"){
 					window.location.href="<%=path%>/common/admin/index";
 				}else if(result.useridentity=="游客"){
-					window.location.href="<%=path%>/common/driver/index";
+					window.location.href="<%=path%>/common/tourist/index";
 				}else if(result.useridentity=="会员"){
 					window.location.href="<%=path%>/common/driverdemp/index";
 				}else if(result.useridentity=="教练"){

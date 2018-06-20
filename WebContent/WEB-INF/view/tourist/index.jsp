@@ -69,29 +69,31 @@
 	</header>
 	<aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
-		<dl id="menu-member">
+		<dl id="menu-course">
 			<dt>
-				<i class="Hui-iconfont">&#xe60d;</i> 会员管理<i
+				<i class="Hui-iconfont">&#xe60d;</i> 选课管理<i
 					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 			</dt>
 			<dd>
 				<ul>
-					<li><a data-href="<%=path %>/userCtrl/queryUser?currpage=1" data-title="会员列表"
-						href="javascript:;">会员列表</a></li>
+					<li><a data-href="<%=path %>/courseCtrl/queryCourseByType?currpage=1&&courseType=0" data-title="康复课程列表"
+						href="javascript:;">康复课程列表</a></li>
+					<li><a data-href="<%=path %>/courseCtrl/queryCourseByType?currpage=1&&courseType=1" data-title="功能课程列表"
+						href="javascript:;">功能课程列表</a></li>
+					<li><a data-href="<%=path %>/courseCtrl/queryCourseByType?currpage=1&&courseType=2" data-title="外形课程列表"
+						href="javascript:;">外形课程列表</a></li>
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-tongji">
+		<dl id="menu-pay">
 			<dt>
-				<i class="Hui-iconfont">&#xe61a;</i> 系统统计<i
+				<i class="Hui-iconfont">&#xe60d;</i> 选课记录管理<i
 					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 			</dt>
 			<dd>
 				<ul>
-					<li><a data-href="charts-1.html" data-title="折线图"
-						href="javascript:void(0)">折线图</a></li>
-					<li><a data-href="charts-4.html" data-title="柱状图"
-						href="javascript:void(0)">柱状图</a></li>
+					<li><a data-href="<%=path %>/payCtrl/queryPay?currpage=1" data-title="查看选课记录"
+						href="javascript:void(0)">查看选课记录</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -105,7 +107,7 @@
 	<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
-				<li class="active"><span title="个人信息" data-href="<%=path %>/common/admin/welcome">个人信息</span>
+				<li class="active"><span title="个人信息" data-href="<%=path %>/common/tourist/welcome">个人信息</span>
 					<em></em></li>
 			</ul>
 		</div>
@@ -119,7 +121,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display: none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="<%=path %>/common/admin/welcome"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="<%=path %>/common/tourist/welcome"></iframe>
 		</div>
 	</div>
 	</section>

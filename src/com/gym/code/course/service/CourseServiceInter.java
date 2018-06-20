@@ -11,4 +11,5 @@ public interface CourseServiceInter {
 	public void updateCourseService(Course course);
 	public void queryCourseService(HttpServletRequest req,String currpage);
 	public String checkCoursenameService(Course course);
+	public void queryCourseByTypeService(HttpServletRequest req, Course course, String currpage);
 }

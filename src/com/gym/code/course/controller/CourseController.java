@@ -19,14 +19,14 @@ public class CourseController {
 	@RequestMapping("queryCourse")
 	public String queryCourse(HttpServletRequest req,String currpage) {
 		this.courseServiceInter.queryCourseService(req, currpage);
-		return "admin/courses";
+		return "tourist/courses";
 	}
 	
 	@RequestMapping("queryCourseById")
 	public String queryCourseByIdCtrl(HttpServletRequest req, Course course) {
-		Course CourseInstance = this.courseServiceInter.getCourseByIdService(course);
-		req.setAttribute("Course", CourseInstance);
-		return "admin/courses_update";
+		Course courseInstance = this.courseServiceInter.getCourseByIdService(course);
+		req.setAttribute("Course", courseInstance);
+		return "tourist/course_update";
 	}
 	
 	@RequestMapping("updateCourse")
@@ -53,5 +53,19 @@ public class CourseController {
 	public String checkCoursename(Course course) {
 		String flag = this.courseServiceInter.checkCoursenameService(course);
 		return flag;
+	}
+	
+	@RequestMapping("queryCourseByType")
+	public String queryCourseByType(HttpServletRequest req,Course course, String currpage) {
+		this.courseServiceInter.queryCourseByTypeService(req, course, currpage);
+		if("0".equals(course.getCourseType())) {
+			return "tourist/recure_list";
+		}else if("1".equals(course.getCourseType())) {
+			return "tourist/function_list";
+		}else if("2".equals(course.getCourseType())) {
+			return "tourist/shape_list";
+		}else {
+			return "tourist/welcome";
+		}
 	}
 }
