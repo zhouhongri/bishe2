@@ -29,12 +29,12 @@ public class MachanismServiceImpl implements MachanismServiceInter{
 	}
 
 	@Override
-	public String delMachanismService(Machanism machanism) {
+	public boolean delMachanismService(Machanism machanism) {
 		int num = this.machanismDaoInter.delMachanismDao(machanism);
 		if(num == 1) {
-			return "success";
+			return true;
 		}else {
-			return "false";
+			return false;
 		}
 	}
 

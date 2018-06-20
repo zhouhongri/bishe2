@@ -26,26 +26,28 @@ public class CourseController {
 	public String queryCourseByIdCtrl(HttpServletRequest req, Course course) {
 		Course courseInstance = this.courseServiceInter.getCourseByIdService(course);
 		req.setAttribute("Course", courseInstance);
-		return "tourist/course_update";
+		return "admin/courses_update";
 	}
 	
 	@RequestMapping("updateCourse")
-	public String updateDemp(Course course) {
+	@ResponseBody
+	public boolean updateDemp(Course course) {
 		this.courseServiceInter.updateCourseService(course);
-		return "redirect:/courseCtrl/queryCourse?currpage=1";
+		return true;
 	}
 	
 	@RequestMapping("delCourseById")
 	@ResponseBody
-	public String delDempById(Course course) {
-		String flag = this.courseServiceInter.delCourseService(course);
+	public boolean delDempById(Course course) {
+		boolean flag = this.courseServiceInter.delCourseService(course);
 		return flag;
 	}
-	
+	//管理员添加课程
 	@RequestMapping("insertCourse")
-	public String insertCourse(Course course) {
+	@ResponseBody
+	public boolean insertCourse(Course course) {
 		this.courseServiceInter.insertCourseService(course);
-		return "redirect:/courseCtrl/queryCourse?currpage=1";
+		return true;
 	}
 	
 	@RequestMapping("checkCoursename")
@@ -67,5 +69,11 @@ public class CourseController {
 		}else {
 			return "tourist/welcome";
 		}
+	}
+	//管理员课程列表查询
+	@RequestMapping("queryCourseAdmin")
+	public String queryCourseAdmin(HttpServletRequest req,String currpage) {
+		this.courseServiceInter.queryCourseService(req, currpage);
+		return "admin/courses";
 	}
 }

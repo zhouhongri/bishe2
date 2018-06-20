@@ -33,7 +33,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDaoInter{
 	@Override
 	public int delCourseDao(Course course) {
 		Session session = this.getSession();
-		String hql = "delete from Course where CourseId=?";
+		String hql = "delete from Course where courseId=?";
 		Query query = session.createQuery(hql);
 		query.setInteger(0, course.getCourseId());
 		return query.executeUpdate();

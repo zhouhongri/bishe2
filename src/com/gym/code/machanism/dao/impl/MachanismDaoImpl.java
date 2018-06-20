@@ -33,7 +33,7 @@ public class MachanismDaoImpl extends BaseDao implements MachanismDaoInter{
 	@Override
 	public int delMachanismDao(Machanism machanism) {
 		Session session = this.getSession();
-		String hql = "delete from Machanism where MachanismId=?";
+		String hql = "delete from Machanism where machanismId=?";
 		Query query = session.createQuery(hql);
 		query.setInteger(0, machanism.getMachanismId());
 		return query.executeUpdate();
