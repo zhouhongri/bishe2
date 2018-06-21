@@ -12,4 +12,6 @@ public interface UserServiceInter {
 	public void queryUserService(HttpServletRequest req,String currpage);
 	public String checkUsernameService(User user);
 	public boolean changePasswordService(User user);
+	public void queryUserByIdentityService(HttpServletRequest req,String currpage, boolean flag);
+	public void updateUserByIdentityService(User user, String flag);
 }

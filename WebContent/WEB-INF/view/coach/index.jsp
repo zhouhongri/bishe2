@@ -76,8 +76,22 @@
 			</dt>
 			<dd>
 				<ul>
-					<li><a data-href="<%=path %>/userCtrl/queryUser?currpage=1" data-title="课表信息"
+					<li><a data-href="<%=path %>/givelessonsCtrl/queryGivelessons?currpage=1" data-title="课表信息"
 						href="javascript:;">课表信息</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-user">
+			<dt>
+				<i class="Hui-iconfont">&#xe60d;</i> 办卡管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a data-href="<%=path %>/userCtrl/queryTouristByIdentity?currpage=1" data-title="游客信息列表"
+						href="javascript:;">游客信息列表</a></li>
+					<li><a data-href="<%=path %>/userCtrl/queryMemberByIdentity?currpage=1" data-title="会员信息列表"
+						href="javascript:;">会员信息列表</a></li>
 				</ul>
 			</dd>
 		</dl>

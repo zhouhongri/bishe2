@@ -69,5 +69,23 @@ public class UserDaoImpl extends BaseDao implements UserDaoInter{
 		query.setInteger(0, user.getUserId());
 		return query.executeUpdate();
 	}
+
+	@Override
+	public void queryUserByIdentityDao(HttpServletRequest req, int currpage,boolean flag) {
+		String sql = "select * from user where 1=1 ";
+		if(flag) {
+			sql+=" and identity='1'";
+		}else {
+			sql+=" and identity='2'";
+		}
+		PageUtil pageUtil = new PageUtil();
+		pageUtil.doPage(sql, this.getSession(), req, currpage);
+	}
+
+	@Override
+	public void updateUserByIdentityDao(User user) {
+		Session session = this.getSession();
+		session.update(user);
+	}
 	
 }

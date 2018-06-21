@@ -75,7 +75,7 @@
 	<script type="text/javascript" src="<%=path%>/lib/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path%>/static/h-ui/js/H-ui.min.js"></script>
 	<script>
-		
+
 	</script>
 </body>
 </html>

@@ -176,11 +176,9 @@
 				submitHandler : function(form) {
 					$.post($(form).attr('action'),$(form).serialize(),function(result){
 						if(result){
-							setTimeout(function(){
-								var index = parent.layer.getFrameIndex(window.name);
-								parent.location.reload();
-								parent.layer.close(index);
-							},1000);
+							var index = parent.layer.getFrameIndex(window.name);
+							parent.location.reload();
+							parent.layer.close(index);
 						}else{
 							parent.layer.msg('系统错误！');
 						}

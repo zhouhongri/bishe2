@@ -37,49 +37,90 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>更新机械</title>
+<title>更新用户</title>
 </head>
 <body>
 	<article class="page-container">
-	<form action="<%=path %>/machanismCtrl/updateMachanism" method="post" class="form form-horizontal"
+	<form action="<%=path %>/userCtrl/updateUserByIdentity" method="post" class="form form-horizontal"
 		id="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>机械名称：</label>
+				class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Machanism.machanismName }" placeholder=""
-					id="machanismName" name="machanismName" readonly="readonly">
+				<input type="text" class="input-text" value="${User.username }" placeholder=""
+					id="username" name="username" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>机械金额：</label>
+				class="c-red">*</span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Machanism.machanismMoney }" placeholder=""
-					id="machanismMoney" name="machanismMoney">
+				<input type="text" class="input-text" value="${User.name }" placeholder=""
+					id="name" name="name"  readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>机械数量：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Machanism.machanismNum }" placeholder=""
-					id="machanismNum" name="machanismNum">
+				class="c-red">*</span>性别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="sex" type="radio" id="sex-1" value="男" readonly="readonly"> <label
+						for="sex-1">男</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="sex-2" name="sex" value="女"  readonly="readonly"> <label
+						for="sex-2">女</label>
+				</div>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span
-				class="c-red">*</span>负责人编号：</label>
+				class="c-red">*</span>年龄：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${Machanism.userId }" placeholder=""
-					id="userId" name="userId">
+				<input type="text" class="input-text" value="${User.age }" placeholder=""
+					id="age" name="age"  readonly="readonly">
 			</div>
 		</div>
-
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span
+				class="c-red">*</span>手机：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${User.tel }" placeholder=""
+					id="tel" name="tel"  readonly="readonly">
+			</div>
+		</div>
+		<c:choose>
+			<c:when test="${User.identity=='1' }">
+				<div class="row cl" id="cardlengthtimeDiv">
+					<label class="form-label col-xs-4 col-sm-3"><span
+						class="c-red">*</span>办卡时长（天）：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder=""
+							id="cardlengthtime" name="cardlengthtime">
+					</div>
+				</div>
+				<input type="text" name="flag" value="tourist" style="display: none;">
+			</c:when>
+			<c:otherwise>
+				<div class="row cl" id="cardlengthtimeDiv">
+					<label class="form-label col-xs-4 col-sm-3"><span
+						class="c-red">*</span>续卡时长（天）：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder=""
+							id="lengthtime" name="lengthtime" onblur="add();">
+					</div>
+				</div>
+				<input type="text" id="cardlengthtime" name="cardlengthtime" value="${User.cardlengthtime }" style="display: none;">
+				<input type="text" name="flag" value="member" style="display: none;">
+			</c:otherwise>
+		</c:choose>
 		<div style="display: none;">
-			<input type="text" name="machanismId" value="${Machanism.machanismId }"/>
+			<input type="text" id="cardtime" name="cardtime" value=""/>
+			<input type="text" name="userId" value="${User.userId }"/>
 			<input type="text" name="password" value="${User.password }"/>
-			<input type="text" id="cardtime" name="cardtime" value="${User.cardtime }"/>
+			<input type="text" name="money" value="${User.money }"/>
+			<input type="text" name="prelogintime" value="${User.prelogintime }"/>
+			<input type="text" name="identity" value="2">
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -108,12 +149,20 @@
 		src="<%=path %>/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			
 			var sexval = '${User.sex}';
 			if(sexval=="男"){
 				$("#sex-1").attr("checked","checked")
 			}else{
 				$("#sex-2").attr("checked","checked")
 			}
+			
+			var cardtimeval = '${User.cardtime}';
+			if(cardtimeval==null||cardtimeval==""){
+				cardtimeval = getTime();
+			}
+			$("#cardtime").val(cardtimeval);
+			
 			$('.skin-minimal input').iCheck({
 				checkboxClass : 'icheckbox-blue',
 				radioClass : 'iradio-blue',
@@ -141,8 +190,9 @@
 						required : true,
 						isMobile : true
 					},
-					identity : {
-						required : true
+					lengthtime : {
+						required : true,
+						digits:true
 					}
 				},
 				onkeyup : false,
@@ -161,7 +211,27 @@
 				}
 			});
 		});
+		function getTime(){
+			var date = new Date();
+		    var seperator1 = "-";
+		    var seperator2 = ":";
+		    var month = date.getMonth() + 1;
+		    var strDate = date.getDate();
+		    if (month >= 1 && month <= 9) {
+		        month = "0" + month;
+		    }
+		    if (strDate >= 0 && strDate <= 9) {
+		        strDate = "0" + strDate;
+		    }
+		    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+		    return currentdate;
+	 }
 		
+	function add(){
+		var lengthtimeval = $("#lengthtime").val();
+		var cardlengthtimeval = $("#cardlengthtime").val();
+		$("#cardlengthtime").val(lengthtimeval*1+cardlengthtimeval*1);
+	}
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>

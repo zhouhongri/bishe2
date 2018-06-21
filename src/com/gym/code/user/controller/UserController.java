@@ -70,4 +70,30 @@ public class UserController {
 		String flag = this.userServiceInter.checkUsernameService(user);
 		return flag;
 	}
+	
+	@RequestMapping("queryTouristByIdentity")
+	public String queryTouristByIdentity(HttpServletRequest req,String currpage) {
+		this.userServiceInter.queryUserByIdentityService(req, currpage, true);
+		return "coach/tourist_list";
+	}
+	
+	@RequestMapping("queryUserIdentityById")
+	public String queryUserIdentityByIdCtrl(HttpServletRequest req, User user) {
+		User userInstance = this.userServiceInter.getUserByIdService(user);
+		req.setAttribute("User", userInstance);
+		return "coach/user_update";
+	}
+	@RequestMapping("updateUserByIdentity")
+	@ResponseBody
+	public boolean updateUserByIdentity(User user,String flag) {
+		this.userServiceInter.updateUserByIdentityService(user, flag);
+		return true;
+	}
+	
+	@RequestMapping("queryMemberByIdentity")
+	public String queryMenberByIdentity(HttpServletRequest req,String currpage) {
+		this.userServiceInter.queryUserByIdentityService(req, currpage, false);
+		return "coach/member_list";
+	}
+	
 }
