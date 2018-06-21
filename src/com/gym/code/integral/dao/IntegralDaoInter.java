@@ -13,4 +13,5 @@ public interface IntegralDaoInter {
 	public void queryIntegralDao(HttpServletRequest req,int currpage);
 	public Integral getIntegralByUserIdDao(User user);
 	public int updateIntegralNumByUserIdDao(Integer goodsIntegral, Integer userId);
+	public int updateIntegralNumByUserIdDao(Integer userId);
 }

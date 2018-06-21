@@ -81,6 +81,11 @@
 					<td>办卡时间</td>
 					<td>${user.cardtime }</td>
 				</tr>
+				<tr id="timetr">
+					<td>剩余时间</td>
+					<td><span id="timespan" style="float:  left;"></span>
+					<span id="warnspan" style="color:red;"></span></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -108,8 +113,64 @@
 				$("#integraltd").text(result.integralNum);
 				$("#typetd").text(integraltype);
 			})
+			
+			var date1 = getNowTime();
+			var t = dateDiff(date1, "${user.cardtime}");
+			
+			if(t*1<=0){
+				$("#timespan").text("0");
+				$("#warnspan").text("（已到期）");
+			}else{
+				if(t*1<=5){
+					$("#warnspan").text("（即将到期）");
+				}
+				$("#timespan").text(t);
+			}
 		})
 		
+		function dateDiff(date1, date2) {
+	        var type1 = typeof date1, type2 = typeof date2;
+	        if (type1 == 'string')
+	            date1 = stringToTime(date1);
+	        else if (date1.getTime)
+	            date1 = date1.getTime();
+	        if (type2 == 'string')
+	            date2 = stringToTime(date2);
+	        else if (date2.getTime)
+	            date2 = date2.getTime();
+	        //alert((date1 - date2) / (1000*60*60)); 
+	        return (date1 - date2) / (1000 * 60 * 60 * 24); //结果是小时 
+	    }
+	    //字符串转成Time(dateDiff)所需方法 
+	    function stringToTime(string) {
+	        var f = string.split(' ', 2);
+	        var d = (f[0] ? f[0] : '').split('-', 3);
+	        var t = (f[1] ? f[1] : '').split(':', 3);
+	        return (new Date(
+	       parseInt(d[0], 10) || null,
+	       (parseInt(d[1], 10) || 1) - 1,
+	        parseInt(d[2], 10) || null,
+	        parseInt(t[0], 10) || null,
+	        parseInt(t[1], 10) || null,
+	        parseInt(t[2], 10) || null
+	        )).getTime();
+
+	    }
+	    function getNowTime(){
+			var date = new Date();
+		    var seperator1 = "-";
+		    var seperator2 = ":";
+		    var month = date.getMonth() + 1;
+		    var strDate = date.getDate();
+		    if (month >= 1 && month <= 9) {
+		        month = "0" + month;
+		    }
+		    if (strDate >= 0 && strDate <= 9) {
+		        strDate = "0" + strDate;
+		    }
+		    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+		    return currentdate;
+	 }
 	</script>
 </body>
 </html>

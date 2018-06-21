@@ -72,5 +72,14 @@ public class IntegralDaoImpl extends BaseDao implements IntegralDaoInter{
 		query.setInteger(0, userId);
 		return query.executeUpdate();
 	}
+
+	@Override
+	public int updateIntegralNumByUserIdDao(Integer userId) {
+		Session session = this.getSession();
+		String hql = "update Integral set integralNum=integralNum+30 where userId=?";
+		Query query = session.createQuery(hql);
+		query.setInteger(0, userId);
+		return query.executeUpdate();
+	}
 	
 }

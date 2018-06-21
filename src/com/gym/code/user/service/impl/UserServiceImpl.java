@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gym.code.integral.dao.IntegralDaoInter;
+import com.gym.code.model.Integral;
 import com.gym.code.model.User;
 import com.gym.code.user.dao.UserDaoInter;
 import com.gym.code.user.service.UserServiceInter;
@@ -16,7 +18,8 @@ public class UserServiceImpl implements UserServiceInter{
 	
 	@Autowired
 	public UserDaoInter userDaoInter;
-	
+	@Autowired
+	public IntegralDaoInter integralDaoInter; 
 	@Override
 	public User getUserByIdService(User user) {
 		User userInstance = this.userDaoInter.getUserByIdDao(user);
@@ -67,6 +70,24 @@ public class UserServiceImpl implements UserServiceInter{
 		}else {
 			return false;
 		}
+	}
+
+	@Override
+	public void queryUserByIdentityService(HttpServletRequest req, String currpage, boolean flag) {
+		int intcurrpage = Integer.parseInt(currpage);
+		this.userDaoInter.queryUserByIdentityDao(req, intcurrpage, flag);
+	}
+
+	@Override
+	public void updateUserByIdentityService(User user, String flag) {
+		if("tourist".equals(flag)) {
+			Integral integral = new Integral();
+			integral.setIntegralNum(0);
+			integral.setUserId(user.getUserId());
+			this.integralDaoInter.insertIntegralDao(integral);
+		}
+		this.userDaoInter.updateUserDao(user);
+		this.integralDaoInter.updateIntegralNumByUserIdDao(user.getUserId());
 	}
 	
 }

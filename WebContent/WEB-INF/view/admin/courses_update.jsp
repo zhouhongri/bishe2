@@ -170,7 +170,7 @@
 							parent.location.reload();
 							parent.layer.close(index);
 						}else{
-							layer.msg('系统错误！');
+							parent.layer.msg('系统错误！');
 						}
 					},"json");
 				}

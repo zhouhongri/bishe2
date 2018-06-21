@@ -11,7 +11,9 @@ public interface UserDaoInter {
 	public void insertUserDao(User user);
 	public int delUserDao(User user);
 	public void updateUserDao(User user);
-	public void queryUserDao(HttpServletRequest req,int currpage);
+	public void queryUserDao(HttpServletRequest req, int currpage);
 	public List checkUsernameDao(User user);
 	public int changePasswordDao(User user);
+	public void queryUserByIdentityDao(HttpServletRequest req, int currpage, boolean flag);
+	public void updateUserByIdentityDao(User user);
 }

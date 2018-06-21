@@ -64,7 +64,7 @@
 				class="c-red">*</span>性别：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" value="男" checked> <label
+					<input name="sex" type="radio" id="sex-1" value="男"> <label
 						for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
@@ -124,6 +124,8 @@
 			<input type="text" name="userId" value="${User.userId }"/>
 			<input type="text" name="password" value="${User.password }"/>
 			<input type="text" id="cardtime" name="cardtime" value="${User.cardtime }"/>
+			<input type="text" name="money" value="${User.money }"/>
+			<input type="text" name="prelogintime" value="${User.prelogintime }"/>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -195,11 +197,9 @@
 				submitHandler : function(form) {
 					$.post($(form).attr('action'),$(form).serialize(),function(result){
 						if(result){
-							setTimeout(function(){
-								var index = parent.layer.getFrameIndex(window.name);
-								parent.location.reload();
-								parent.layer.close(index);
-							},1000);
+							var index = parent.layer.getFrameIndex(window.name);
+							parent.location.reload();
+							parent.layer.close(index);
 						}else{
 							parent.layer.msg('系统错误！');
 						}
