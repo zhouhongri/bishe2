@@ -16,4 +16,5 @@ public interface UserDaoInter {
 	public int changePasswordDao(User user);
 	public void queryUserByIdentityDao(HttpServletRequest req, int currpage, boolean flag);
 	public void updateUserByIdentityDao(User user);
+	public void queryUserincome(HttpServletRequest req, int currpage);
 }

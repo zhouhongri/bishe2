@@ -105,17 +105,39 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-tongji">
+		<dl id="menu-member">
 			<dt>
-				<i class="Hui-iconfont">&#xe61a;</i> 系统统计<i
+				<i class="Hui-iconfont">&#xe60d;</i> 收入管理<i
 					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 			</dt>
 			<dd>
 				<ul>
-					<li><a data-href="charts-1.html" data-title="折线图"
-						href="javascript:void(0)">折线图</a></li>
-					<li><a data-href="charts-4.html" data-title="柱状图"
-						href="javascript:void(0)">柱状图</a></li>
+					<li><a data-href="<%=path %>/userCtrl/queryUserincome?currpage=1" data-title="收入列表"
+						href="javascript:;">收入列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-member">
+			<dt>
+				<i class="Hui-iconfont">&#xe60d;</i> 商品管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a data-href="<%=path %>/goodsCtrl/queryGoodsadmin?currpage=1" data-title="商品列表"
+						href="javascript:;">商品列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-member">
+			<dt>
+				<i class="Hui-iconfont">&#xe60d;</i> 兑换管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a data-href="<%=path %>/exchangeCtrl/queryExchangeadmin?currpage=1" data-title="商品列表"
+						href="javascript:;">兑换记录</a></li>
 				</ul>
 			</dd>
 		</dl>

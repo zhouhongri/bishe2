@@ -49,5 +49,22 @@ public class ExchangeServiceImpl implements ExchangeServiceInter {
 	public void queryExchangeService(HttpServletRequest req, String currpage) {
 		this.exchangeDaoInter.queryExchangeDao(req, Integer.parseInt(currpage));
 	}
-
+	@Override
+	public void queryExchangeadmin(HttpServletRequest req, String currpage) {
+		this.exchangeDaoInter.queryExchangeadmin(req, Integer.parseInt(currpage));
+	}
+	@Override
+	public Exchange queryExchangeByIdService(Exchange exchange) {
+		return this.queryExchangeByIdService(exchange);
+	}
+	@Override
+	public boolean updateExchangeByIdService(Exchange exchange) {
+		int num = this.exchangeDaoInter.updateExchangeByIdDao(exchange);
+		if(num==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 }

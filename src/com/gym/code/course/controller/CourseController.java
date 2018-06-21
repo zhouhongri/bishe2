@@ -76,4 +76,12 @@ public class CourseController {
 		this.courseServiceInter.queryCourseService(req, currpage);
 		return "admin/courses";
 	}
+	//管理员分配课程
+	@RequestMapping("queryCourseGivelessons")
+	public String queryCourseGivelessons(HttpServletRequest req, Course course) {
+		Course courseInstance = this.courseServiceInter.getCourseByIdService(course);
+		req.setAttribute("Course", courseInstance);
+		return "admin/givelessons";
+	}
+	
 }

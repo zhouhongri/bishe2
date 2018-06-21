@@ -18,7 +18,7 @@ public class GoodsController {
 	
 	@RequestMapping("queryGoods")
 	public String queryGoods(HttpServletRequest req,String currpage) {
-		this.goodsServiceInter.queryGoodsService(req, currpage);
+		this.goodsServiceInter.queryGoodsService(req, currpage, true);
 		return "member/good_list";
 	}
 	
@@ -30,22 +30,24 @@ public class GoodsController {
 	}
 	
 	@RequestMapping("updateGoods")
-	public String updateDemp(Goods goods) {
+	@ResponseBody
+	public boolean updateDemp(Goods goods) {
 		this.goodsServiceInter.updateGoodsService(goods);
-		return "redirect:/goodsCtrl/queryGoods?currpage=1";
+		return true;
 	}
 	
 	@RequestMapping("delGoodsById")
 	@ResponseBody
-	public String delDempById(Goods goods) {
-		String flag = this.goodsServiceInter.delGoodsService(goods);
+	public boolean delDempById(Goods goods) {
+		boolean flag = this.goodsServiceInter.delGoodsService(goods);
 		return flag;
 	}
 	
 	@RequestMapping("insertGoods")
-	public String insertGoods(Goods goods) {
+	@ResponseBody
+	public boolean insertGoods(Goods goods) {
 		this.goodsServiceInter.insertGoodsService(goods);
-		return "redirect:/goodsCtrl/queryGoods?currpage=1";
+		return true;
 	}
 	
 	@RequestMapping("checkGoodsname")
@@ -53,5 +55,17 @@ public class GoodsController {
 	public String checkGoodsname(Goods goods) {
 		String flag = this.goodsServiceInter.checkGoodsnameService(goods);
 		return flag;
+	}
+	//管理员查询商品
+	@RequestMapping("queryGoodsadmin")
+	public String queryGoodsadmin(HttpServletRequest req,String currpage) {
+		this.goodsServiceInter.queryGoodsService(req, currpage, false);
+		return "admin/goods";
+	}
+	@RequestMapping("queryGoodsByIdadmin")
+	public String queryGoodsByIdadmin(HttpServletRequest req, Goods goods) {
+		Goods goodsInstance = this.goodsServiceInter.getGoodsByIdService(goods);
+		req.setAttribute("Goods", goodsInstance);
+		return "admin/good_update";
 	}
 }

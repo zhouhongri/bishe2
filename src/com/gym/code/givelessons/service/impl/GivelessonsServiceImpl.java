@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gym.code.givelessons.dao.GivelessonsDaoInter;
 import com.gym.code.givelessons.service.GivelessonsServiceInter;
+import com.gym.code.model.Givelessons;
 
 @Service
 public class GivelessonsServiceImpl implements GivelessonsServiceInter {
@@ -16,6 +17,10 @@ public class GivelessonsServiceImpl implements GivelessonsServiceInter {
 	@Override
 	public void queryGivelessonsDao(HttpServletRequest req, String currpage) {
 		this.givelessonsDaoInter.queryGivelessonsDao(req, Integer.parseInt(currpage));
+	}
+	@Override
+	public void insertGivelessons(Givelessons givelessons) {
+		this.givelessonsDaoInter.insertGivelessons(givelessons);
 	}
 
 }

@@ -20,15 +20,17 @@ public class Exchange implements java.io.Serializable {
 	private Integer goodsId;
 	private Integer exchangeNum;
 	private String exchangeTime;
+	private String exchangeStatus;
 
 	public Exchange() {
 	}
 
-	public Exchange(Integer userId, Integer goodsId, Integer exchangeNum, String exchangeTime) {
+	public Exchange(Integer userId, Integer goodsId, Integer exchangeNum, String exchangeTime, String exchangeStatus) {
 		this.userId = userId;
 		this.goodsId = goodsId;
 		this.exchangeNum = exchangeNum;
 		this.exchangeTime = exchangeTime;
+		this.exchangeStatus = exchangeStatus;
 	}
 
 	@Id
@@ -79,4 +81,13 @@ public class Exchange implements java.io.Serializable {
 		this.exchangeTime = exchangeTime;
 	}
 
+	@Column(name = "exchange_status")
+	public String getExchangeStatus() {
+		return this.exchangeStatus;
+	}
+
+	public void setExchangeStatus(String exchangeStatus) {
+		this.exchangeStatus = exchangeStatus;
+	}
+	
 }

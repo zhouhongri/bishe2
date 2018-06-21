@@ -33,7 +33,7 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDaoInter{
 	@Override
 	public int delGoodsDao(Goods goods) {
 		Session session = this.getSession();
-		String hql = "delete from Goods where GoodsId=?";
+		String hql = "delete from Goods where goodsId=?";
 		Query query = session.createQuery(hql);
 		query.setInteger(0, goods.getGoodsId());
 		return query.executeUpdate();
@@ -46,8 +46,11 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDaoInter{
 	}
 
 	@Override
-	public void queryGoodsDao(HttpServletRequest req, int currpage) {
-		String sql = "select * from Goods";
+	public void queryGoodsDao(HttpServletRequest req, int currpage , boolean flag) {
+		String sql = "select * from Goods ";
+		if(flag){
+			sql+=" where goods_num>0";
+		}
 		PageUtil pageUtil = new PageUtil();
 		pageUtil.doPage(sql, this.getSession(), req, currpage);
 	}

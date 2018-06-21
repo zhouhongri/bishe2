@@ -90,4 +90,11 @@ public class UserServiceImpl implements UserServiceInter{
 		this.integralDaoInter.updateIntegralNumByUserIdDao(user.getUserId());
 	}
 	
+	@Override
+	public void queryUserincome(HttpServletRequest req, String currpage) {
+		int intcurrpage = Integer.parseInt(currpage);
+		this.userDaoInter.queryUserincome(req, intcurrpage);
+	}
+
+	
 }

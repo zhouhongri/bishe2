@@ -87,5 +87,10 @@ public class UserDaoImpl extends BaseDao implements UserDaoInter{
 		Session session = this.getSession();
 		session.update(user);
 	}
-	
+	@Override
+	public void queryUserincome(HttpServletRequest req, int currpage) {
+		String sql = "select * from user where identity = '3'";
+		PageUtil pageUtil = new PageUtil();
+		pageUtil.doPage(sql, this.getSession(), req, currpage);
+	}
 }

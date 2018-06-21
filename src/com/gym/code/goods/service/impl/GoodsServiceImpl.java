@@ -29,12 +29,12 @@ public class GoodsServiceImpl implements GoodsServiceInter{
 	}
 
 	@Override
-	public String delGoodsService(Goods goods) {
+	public boolean delGoodsService(Goods goods) {
 		int num = this.goodsDaoInter.delGoodsDao(goods);
 		if(num == 1) {
-			return "success";
+			return true;
 		}else {
-			return "false";
+			return false;
 		}
 	}
 
@@ -44,9 +44,9 @@ public class GoodsServiceImpl implements GoodsServiceInter{
 	}
 
 	@Override
-	public void queryGoodsService(HttpServletRequest req, String currpage) {
+	public void queryGoodsService(HttpServletRequest req, String currpage, boolean flag) {
 		int intcurrpage = Integer.parseInt(currpage);
-		this.goodsDaoInter.queryGoodsDao(req, intcurrpage);
+		this.goodsDaoInter.queryGoodsDao(req, intcurrpage, flag);
 	}
 
 	@Override

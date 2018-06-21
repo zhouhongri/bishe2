@@ -47,7 +47,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDaoInter{
 
 	@Override
 	public void queryCourseDao(HttpServletRequest req, int currpage) {
-		String sql = "select * from Course";
+		String sql = "select Course.*,givelessons.givelessons_id from Course LEFT JOIN givelessons on Course.course_id = givelessons.course_id";
 		PageUtil pageUtil = new PageUtil();
 		pageUtil.doPage(sql, this.getSession(), req, currpage);
 	}

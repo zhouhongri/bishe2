@@ -11,7 +11,7 @@ public interface GoodsDaoInter {
 	public void insertGoodsDao(Goods goods);
 	public int delGoodsDao(Goods goods);
 	public void updateGoodsDao(Goods goods);
-	public void queryGoodsDao(HttpServletRequest req,int currpage);
+	public void queryGoodsDao(HttpServletRequest req, int currpage, boolean flag);
 	public List checkGoodsnameDao(Goods goods);
 	public int updateGoodsNumById(String subNum, Integer goodsId);
 }

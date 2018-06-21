@@ -95,5 +95,11 @@ public class UserController {
 		this.userServiceInter.queryUserByIdentityService(req, currpage, false);
 		return "coach/member_list";
 	}
+	//管理员查询教练收入
+	@RequestMapping("queryUserincome")
+	public String queryUserincome(HttpServletRequest req,String currpage) {
+		this.userServiceInter.queryUserincome(req, currpage);
+		return "admin/income";
+	}
 	
 }

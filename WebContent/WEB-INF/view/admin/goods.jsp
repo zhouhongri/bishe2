@@ -35,57 +35,47 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>用户管理</title>
+<title>商品管理</title>
 </head>
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页
 	<span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span>
-	用户管理 <a id="refresh" class="btn btn-success radius r"
+	商品管理 <a id="refresh" class="btn btn-success radius r"
 		style="line-height: 1.6em; margin-top: 3px"
 		href="javascript:location.replace(location.href);" title="刷新"><i
 		class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="page-container">
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l"><a href="javascript:;"
-				onclick="member_add('添加课程','<%=path%>/common/admin/coursesa_add','','510')"
+				onclick="member_add('添加商品','<%=path%>/common/admin/goods_add','','510')"
 				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
-					添加课程</a> </span> <span class="r">共有数据：<strong id="totalcount">${totalcount }</strong> 条
+					添加商品</a> </span> <span class="r">共有数据：<strong id="totalcount">${totalcount }</strong> 条
 			</span>
 		</div>
 		<div class="mt-20">
 			<table class="table table-border table-bordered table-hover table-bg">
-			<thead>
+				<thead>
 					<tr class="text-c">
 						<th width="80">ID</th>
-						<th>课程名称</th>
-						<th>班级人数</th>
-						<th>上课时间</th>
-						<th>课程收费金额</th>
-						<th>课程班级</th>
+						<th>商品名称</th>
+						<th>商品积分</th>
+						<th>商品数量</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list }" var="c">
+					<c:forEach items="${list }" var="g">
 						<tr class="text-c">
-							<td>${c.course_id }</td>
-							<td>${c.course_name }</td>
-							<td>${c.course_num }</td>
-							<td>${c.course_time }</td>
-							<td>${c.course_money }</td>
-							<td>${c.course_class }</td>
+							<td>${g.goods_id }</td>
+							<td>${g.goods_name }</td>
+							<td>${g.goods_integral }</td>
+							<td>${g.goods_num }</td>
 			
-
-							<td class="td-manage"><a title="修改" href="javascript:;"
-								onclick="member_edit('修改','<%=path %>/courseCtrl/queryCourseById?courseId=${c.course_id }','','510')"
+							<td class="td-manage"><a title="编辑" href="javascript:;"
+								onclick="member_edit('编辑','<%=path %>/goodsCtrl/queryGoodsByIdadmin?goodsId=${g.goods_id }','','510')"
 								class="ml-5" style="text-decoration: none"><i
-									class="Hui-iconfont">&#xe6df;</i></a> 
-									<c:if test="${c.givelessons_id == null||c.givelessons_id == '' }">	
-									<a style="text-decoration: none" class="ml-5"
-								onClick="change_password('分配课程','<%=path %>/courseCtrl/queryCourseGivelessons?courseId=${c.course_id }','600','270')"
-								href="javascript:;" title="分配课程"><i class="Hui-iconfont">&#xe63f;</i></a></c:if>
-						
-								<a title="删除" href="javascript:;" onclick="member_del(this,${c.course_id })"
+									class="Hui-iconfont">&#xe6df;</i></a>
+								<a title="删除" href="javascript:;" onclick="member_del(this,${g.goods_id  })"
 								class="ml-5" style="text-decoration: none"><i
 									class="Hui-iconfont">&#xe6e2;</i></a></td>
 						</tr>
@@ -94,10 +84,10 @@
 				<tr>
 					<td colspan="9"><div class="pagelist">
 							<c:if test="${currpage > 1}">
-								<a href="<%=path %>/courseCtrl/queryCourseAdmin?currpage=${currpage-1}">上一页</a>
+								<a href="<%=path %>/goodsCtrl/queryGoodsadmin?currpage=${currpage-1}">上一页</a>
 							</c:if>
 							<c:if test="${currpage < pagecount}">|当前${currpage}页/总${pagecount}页|
-        <a href="<%=path %>/courseCtrl/queryCourseAdmin?currpage=${currpage+1}">下一页</a>
+        <a href="<%=path %>/goodsCtrl/queryGoodsadmin?currpage=${currpage+1}">下一页</a>
 							</c:if>
 						</div></td>
 				</tr>
@@ -220,8 +210,8 @@
 			layer.confirm('确认要删除吗？', function(index) {
 				$.ajax({
 					type : 'POST',
-					url : '<%=path %>/courseCtrl/delCourseById',
-					data: {"courseId":id},
+					url : '<%=path %>/goodsCtrl/delGoodsById',
+					data: {"goodsId":id},
 					dataType : 'json',
 					success : function(data) {
 						if(data){
