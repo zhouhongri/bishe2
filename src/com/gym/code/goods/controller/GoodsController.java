@@ -19,14 +19,14 @@ public class GoodsController {
 	@RequestMapping("queryGoods")
 	public String queryGoods(HttpServletRequest req,String currpage) {
 		this.goodsServiceInter.queryGoodsService(req, currpage);
-		return "admin/goodss";
+		return "member/good_list";
 	}
 	
 	@RequestMapping("queryGoodsById")
 	public String queryGoodsByIdCtrl(HttpServletRequest req, Goods goods) {
-		Goods GoodsInstance = this.goodsServiceInter.getGoodsByIdService(goods);
-		req.setAttribute("Goods", GoodsInstance);
-		return "admin/goodss_update";
+		Goods goodsInstance = this.goodsServiceInter.getGoodsByIdService(goods);
+		req.setAttribute("Goods", goodsInstance);
+		return "member/good_update";
 	}
 	
 	@RequestMapping("updateGoods")

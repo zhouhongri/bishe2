@@ -195,11 +195,13 @@
 				submitHandler : function(form) {
 					$.post($(form).attr('action'),$(form).serialize(),function(result){
 						if(result){
-							var index = parent.layer.getFrameIndex(window.name);
-							parent.location.reload();
-							parent.layer.close(index);
+							setTimeout(function(){
+								var index = parent.layer.getFrameIndex(window.name);
+								parent.location.reload();
+								parent.layer.close(index);
+							},1000);
 						}else{
-							layer.msg('系统错误！');
+							parent.layer.msg('系统错误！');
 						}
 					},"json");
 				}

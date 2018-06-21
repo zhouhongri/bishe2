@@ -56,6 +56,7 @@
 						<th>课程名称</th>
 						<th>课程类型</th>
 						<th>课程数量</th>
+						<th>课程地点</th>
 						<th>课程时间</th>
 						<th>等级</th>
 						<th>选课人</th>
@@ -75,6 +76,7 @@
 								<td>体形课程</td>
 							</c:if>
 							<td>${c.coursetotal  }</td>
+							<td>${c.course_place }</td>
 							<td>${c.course_time }</td>
 							<c:choose>
 								<c:when test="${c.course_class=='2' }">

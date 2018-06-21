@@ -55,6 +55,7 @@
 					<tr class="text-c">
 						<th>课程名称</th>
 						<th>课程数量</th>
+						<th>课程地点</th>
 						<th>课程时间</th>
 						<th>课程价格</th>
 						<th>教练姓名</th>
@@ -69,6 +70,7 @@
 						<tr class="text-c">
 							<td>${c.course_name }</td>
 							<td>${c.course_num }</td>
+							<td>${c.course_place }</td>
 							<td>${c.course_time }</td>
 							<td>${c.course_money }</td>
 							<td>${c.name }</td>
@@ -107,7 +109,7 @@
 					</c:forEach>
 				</tbody>
 				<tr>
-					<td colspan="9"><div class="pagelist">
+					<td colspan="10"><div class="pagelist">
 							<c:if test="${currpage > 1}">
 								<a href="<%=path %>/courseCtrl/queryCourseByType?currpage=${currpage-1}&&courseType=2">上一页</a>
 							</c:if>

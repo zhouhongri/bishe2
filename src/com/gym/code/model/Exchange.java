@@ -1,11 +1,10 @@
 package com.gym.code.model;
-// Generated 2018-6-12 10:00:57 by Hibernate Tools 4.0.1.Final
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated 2018-6-20 16:51:36 by Hibernate Tools 4.0.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,13 +18,17 @@ public class Exchange implements java.io.Serializable {
 	private Integer exchangeId;
 	private Integer userId;
 	private Integer goodsId;
+	private Integer exchangeNum;
+	private String exchangeTime;
 
 	public Exchange() {
 	}
 
-	public Exchange(Integer userId, Integer goodsId) {
+	public Exchange(Integer userId, Integer goodsId, Integer exchangeNum, String exchangeTime) {
 		this.userId = userId;
 		this.goodsId = goodsId;
+		this.exchangeNum = exchangeNum;
+		this.exchangeTime = exchangeTime;
 	}
 
 	@Id
@@ -56,6 +59,24 @@ public class Exchange implements java.io.Serializable {
 
 	public void setGoodsId(Integer goodsId) {
 		this.goodsId = goodsId;
+	}
+
+	@Column(name = "exchange_num")
+	public Integer getExchangeNum() {
+		return this.exchangeNum;
+	}
+
+	public void setExchangeNum(Integer exchangeNum) {
+		this.exchangeNum = exchangeNum;
+	}
+
+	@Column(name = "exchange_time")
+	public String getExchangeTime() {
+		return this.exchangeTime;
+	}
+
+	public void setExchangeTime(String exchangeTime) {
+		this.exchangeTime = exchangeTime;
 	}
 
 }
