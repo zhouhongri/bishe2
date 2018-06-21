@@ -29,12 +29,12 @@ public class CourseServiceImpl implements CourseServiceInter{
 	}
 
 	@Override
-	public String delCourseService(Course course) {
+	public boolean delCourseService(Course course) {
 		int num = this.courseDaoInter.delCourseDao(course);
 		if(num == 1) {
-			return "success";
+			return true;
 		}else {
-			return "false";
+			return false;
 		}
 	}
 
