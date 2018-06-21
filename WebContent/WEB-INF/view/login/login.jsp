@@ -85,7 +85,7 @@
 				}else if(result.useridentity=="会员"){
 					window.location.href="<%=path%>/common/member/index";
 				}else if(result.useridentity=="教练"){
-					window.location.href="<%=path%>/common/officials/index";
+					window.location.href="<%=path%>/common/coach/index";
 				}
 				layer.msg(result.mess, {
 					icon : 6
