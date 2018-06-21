@@ -81,6 +81,30 @@
 				</ul>
 			</dd>
 		</dl>
+		<dl id="menu-member">
+			<dt>
+				<i class="Hui-iconfont">&#xe60d;</i> 课程管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a data-href="<%=path %>/courseCtrl/queryCourseAdmin?currpage=1" data-title="会员列表"
+						href="javascript:;">课程列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-member">
+			<dt>
+				<i class="Hui-iconfont">&#xe60d;</i> 机械管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a data-href="<%=path %>/machanismCtrl/queryMachanism?currpage=1" data-title="机械列表"
+						href="javascript:;">机械列表</a></li>
+				</ul>
+			</dd>
+		</dl>
 		<dl id="menu-tongji">
 			<dt>
 				<i class="Hui-iconfont">&#xe61a;</i> 系统统计<i

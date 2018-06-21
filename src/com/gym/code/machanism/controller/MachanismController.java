@@ -19,33 +19,35 @@ public class MachanismController {
 	@RequestMapping("queryMachanism")
 	public String queryMachanism(HttpServletRequest req,String currpage) {
 		this.machanismServiceInter.queryMachanismService(req, currpage);
-		return "admin/machanisms";
+		return "admin/machanism";
 	}
 	
 	@RequestMapping("queryMachanismById")
 	public String queryMachanismByIdCtrl(HttpServletRequest req, Machanism machanism) {
 		Machanism MachanismInstance = this.machanismServiceInter.getMachanismByIdService(machanism);
 		req.setAttribute("Machanism", MachanismInstance);
-		return "admin/machanisms_update";
+		return "admin/machanism_update";
 	}
 	
 	@RequestMapping("updateMachanism")
-	public String updateDemp(Machanism machanism) {
+	@ResponseBody
+	public boolean updateDemp(Machanism machanism) {
 		this.machanismServiceInter.updateMachanismService(machanism);
-		return "redirect:/machanismCtrl/queryMachanism?currpage=1";
+		return true;
 	}
 	
 	@RequestMapping("delMachanismById")
 	@ResponseBody
-	public String delDempById(Machanism machanism) {
-		String flag = this.machanismServiceInter.delMachanismService(machanism);
+	public boolean delDempById(Machanism machanism) {
+		boolean flag = this.machanismServiceInter.delMachanismService(machanism);
 		return flag;
 	}
 	
 	@RequestMapping("insertMachanism")
-	public String insertMachanism(Machanism machanism) {
+	@ResponseBody
+	public boolean insertMachanism(Machanism machanism) {
 		this.machanismServiceInter.insertMachanismService(machanism);
-		return "redirect:/machanismCtrl/queryMachanism?currpage=1";
+		return true;
 	}
 	
 	@RequestMapping("checkMachanismname")
